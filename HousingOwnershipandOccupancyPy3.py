@@ -11,6 +11,10 @@ infeatureinput = input("Input your features to be changed: ") #"D:\Documents\Col
 outfeatureinput = input("Input the address of the feature to be created: ") #"D:\Documents\College\FRCC GIS\GIS_140\GeoGoonies\Final_Data\GIS_ParcelOwnerGDB\PythonTesting.gdb\GIS_ParcelOwner_ZoningClipSimple" #
 infeaturepath = os.path.join(workspace, infeatureinput)
 outfeaturepath = os.path.join(workspace, outfeatureinput)
+
+#Create a file address function here to accept more file names and concat them to the gdb file address
+
+
  #makes all of the user input match path format so all tools will run
 #layer = arcpy.GetParameterAsText(0)
 #pathvar = arcpy.Describe(workspace)

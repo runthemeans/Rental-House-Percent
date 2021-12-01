@@ -6,16 +6,13 @@
 
 import arcpy
 import os
-workspace = input("Input your workspace GDB: ") #"D:\Documents\College\FRCC GIS\GIS_140\GeoGoonies\Final_Data\GIS_ParcelOwnerGDB\PythonTesting.gdb"
-infeatureinput = input("Input your features to be changed: ") #"D:\Documents\College\FRCC GIS\GIS_140\GeoGoonies\Final_Data\GIS_ParcelOwnerGDB\PythonTesting.gdb\GIS_ParcelOwner_ZoningClip"
-outfeatureinput = input("Input the address of the feature to be created: ") #"D:\Documents\College\FRCC GIS\GIS_140\GeoGoonies\Final_Data\GIS_ParcelOwnerGDB\PythonTesting.gdb\GIS_ParcelOwner_ZoningClipSimple" #
+workspace = input("Input your workspace GDB file path: ")
+infeatureinput = input("Input your features to be changed: ")
+outfeatureinput = input("Input the address of the feature to be created: ")
 infeaturepath = os.path.join(workspace, infeatureinput)
 outfeaturepath = os.path.join(workspace, outfeatureinput)
 
-#Create a file address function here to accept more file names and concat them to the gdb file address
-
-
- #makes all of the user input match path format so all tools will run
+#makes all of the user input match path format so all tools will run
 #layer = arcpy.GetParameterAsText(0)
 #pathvar = arcpy.Describe(workspace)
 #path = pathvar.path
@@ -46,6 +43,7 @@ elif z != y:
 
 
 
+
 keep_fields = ["OBJECTID_1", "SHAPE", "PARCELNUM", "LOCADDRESS", "NAME", "MAILINGADDRESS", "SHAPE_Area"]
 input("Continue to simplify fields?")
 def copy_with_fields(in_fc, out_fc, keep_fields):
@@ -57,7 +55,7 @@ def copy_with_fields(in_fc, out_fc, keep_fields):
 
     # get all fields
     fields = {f.name: f for f in arcpy.ListFields(in_fc)}
-    print(fields)
+    print(keep_fields)
     input("Press Enter if these fields are correct")
 
     # clean up field map
@@ -72,7 +70,8 @@ def copy_with_fields(in_fc, out_fc, keep_fields):
     return out_fc
 copy_with_fields(infeaturepath, outfeaturepath, keep_fields)
 
-input("Continue?")
+
+input("Continue to analysis?")
 
 wherec = "MAILINGADDRESS LIKE '% STE %' OR MAILINGADDRESS LIKE '% UNIT %' OR MAILINGADDRESS LIKE '% APT %' \
            OR MAILINGADDRESS LIKE '% LOT %' OR MAILINGADDRESS LIKE '% OFFICE %'" #sql statement
@@ -117,7 +116,7 @@ arcpy.management.CalculateField(in_table=outfeaturepath, field="ownLivYN", expre
 # results statements
 
 totalrhomes = int(total[0]) - int(counter)
-percent = (float(totalrhomes)/ totalfloat)*100
+percent = (float(totalrhomes) / totalfloat) * 100
 
 print("Rentals available in Larimer County " + str(totalrhomes))
 print("The total number of homes in Larimer County is: " + str(totalfloat))
